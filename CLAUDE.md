@@ -24,7 +24,7 @@ Teammates edit and rearrange this sheet. Always re-read the header row and find 
 | Description | match |
 | Qty, UOM | match |
 | Restrictions | AML / country-of-origin check |
-| Vendor Quotes Received | **write**: append the quote here |
+| Vendor Quotes Received | **write**: the cheapest quote (others go in the cell note) |
 | Delivery Status | **write**: if it is exactly `No vendor PO yet`, change it to `Quoted, no vendor PO yet` |
 
 Why the Delivery Status change: the sheet colors a row orange while its status starts with "No vendor". Changing it to "Quoted, ..." clears the orange for that row only.
