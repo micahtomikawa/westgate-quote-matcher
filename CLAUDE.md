@@ -31,9 +31,25 @@ Why the Delivery Status change: the sheet colors a row orange while its status s
 
 ## Write format
 - Vendor Quotes Received: `Vendor Name: $price/UOM` (e.g. `Elite Supply: $231.38/EA`).
-- If the cell already has text, **append** with `; ` in between. Never overwrite or delete what's there.
-- If the same vendor and price are already in the cell, skip it. A teammate may have entered the same quote.
-- If something in the quote needs a heads-up but is still a match, add a short note in parentheses, e.g. `Elite Supply: $272.73/EA (SA-516-70 not stated)`.
+- If something in the quote needs a heads-up but is still a match, add a short note in parentheses, e.g. `Elite Supply: $272.73/EA (SA-516-70 not stated)`. The caveat stays with that price wherever it goes.
+- If the same vendor and price are already in the cell or its note, skip it. A teammate may have entered the same quote.
+
+## More than one quote on a line
+- **The cell shows only the cheapest quote.**
+- **Every other quote goes into a note on that cell** (a Google Sheets note, shown when you hover). One quote per line:
+  ```
+  Other quotes:
+  Elite Supply $231.38/EA (Q20291819, 11/5)
+  ```
+- **A new quote that's cheaper** replaces the cell text, and the old cell text moves into the note.
+- **A new quote that's more expensive** is only added to the note.
+- **A vendor revising their own price** follows the same rule.
+- If a cell already holds several quotes separated by `; ` (older entries), keep the cheapest in the cell and move the rest into the note.
+- **Only compare the same unit.** If the units differ (per FT vs per EA vs per 100 LB), ask the user instead of guessing.
+- On a tie, keep the existing quote.
+- Never delete a price. Every quote ends up either in the cell or in the note.
+- Read the cell **and its note** before writing, and re-read both after.
+- To write a note, use the Sheets `update_spreadsheet` tool with an `updateCells` request on that cell and `fields: "note"`. The tab's numeric sheetId comes from `get_spreadsheet`. Write the full note text: existing lines plus the new line.
 
 ## Matching rules
 - Match on Customer PO + item + quantity + UOM. Many descriptions repeat with different quantities, so the PO and quantity decide the row.

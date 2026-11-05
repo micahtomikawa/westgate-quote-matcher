@@ -7,7 +7,8 @@ What it does on each check:
 - Matches each quoted line to the right row by Customer PO, item and quantity.
 - Adds the price to **Vendor Quotes Received**, e.g. `Elite Supply: $231.38/EA`.
 - Changes **Delivery Status** from `No vendor PO yet` to `Quoted, no vendor PO yet`, which clears the orange highlight on that row.
-- Asks you when a match isn't clear or the specs don't line up. It never overwrites anything and never touches any other sheet.
+- When several vendors quote the same line, it keeps the **cheapest** price in the cell. Every other quote goes into a **note** on that cell (hover over the cell to see it), so no price is ever lost.
+- Asks you when a match isn't clear, the specs don't line up, or the units don't match. It never touches any other sheet.
 
 Setup takes about 15 minutes, once.
 

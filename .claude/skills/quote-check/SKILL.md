@@ -19,13 +19,22 @@ Run one check of the user's inbox for vendor quotes. Follow the rules in this fo
    - **Not a quote:** no stock, can't quote, substitution or partial. Report it.
 5. **Approval.** If `CLAUDE.local.md` says `quote-writes: pre-approved`, go to step 6. Otherwise show a table (row, item, current cell, new cell, status change) and stop until the user says OK.
 6. **Write each clear match:**
-   - Re-read the row's Vendor Quotes Received and Delivery Status cells.
-   - Skip if the same vendor and price are already there.
-   - Append `Vendor: $price/UOM` (with `; ` if the cell isn't empty).
+   - Re-read the row's Vendor Quotes Received cell **and its note**, and its Delivery Status cell.
+   - Skip if the same vendor and price are already in the cell or the note.
+   - **Empty cell:** write `Vendor: $price/UOM`.
+   - **Cell already has a quote:** follow "More than one quote on a line" in `CLAUDE.md`.
+     - The cheapest quote goes in the cell.
+     - Every other quote goes in the cell note, as `Vendor $price/UOM (Q#, m/d)` under `Other quotes:`.
+     - If the units differ, don't write. Ask the user instead.
    - If Delivery Status is exactly `No vendor PO yet`, set it to `Quoted, no vendor PO yet`.
-   - Write both cells of a row in one call.
-7. **Verify.** Re-read every written row and confirm the PO and description still match and the new text is there.
+7. **Verify.** Re-read every written row, including the note, and confirm all of these:
+   - The PO and description still match.
+   - The cheapest quote is in the cell.
+   - No price was lost.
 8. **Log.** Add each handled thread to `processed.json`: `thread_id`, `vendor`, `result` (rows written or why not), `processed` (timestamp), `last_message_id`.
 9. **Report.**
    - Nothing new: reply with one short line.
-   - Otherwise: a short table of what was written (row, item, price), then anything that needs the user's decision, then quotes that weren't in the sheet.
+   - Otherwise:
+     - A short table of what was written: row, item, price, and whether it's now the lowest or went into the note.
+     - Then anything that needs the user's decision.
+     - Then quotes that weren't in the sheet.
