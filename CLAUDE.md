@@ -25,10 +25,18 @@ Teammates insert, move and rename columns in this sheet; a "Best Price ($/Unit)"
 | Qty, UOM | match |
 | Restrictions | AML / country-of-origin check |
 | Sell Price ($/unit) | compare: flag quotes above it |
+| Best Price ($/Unit) | **write**: the lowest unit price as a number (the column is currency-formatted), plus a note (see below) |
 | Vendor Quotes Received | **write**: the cheapest quote (others and any flags go in the cell note) |
 | Delivery Status | **write**: if it is exactly `No vendor PO yet`, change it to `Quoted, no vendor PO yet` |
 
-Don't fill other columns, such as Best Price, unless the user asks.
+**Best Price note**, one item per line:
+```
+Lowest: Pride Piping $222.10/EA (PPP 261105, 11/5, stock)
+Other quotes:
+Elite Supply $231.38/EA (Q20291819, 11/5)
+Flag: above our $143.02 sell price.
+```
+If a teammate already entered a lower Best Price, keep it and add the new quote to the note. Don't fill any other columns unless the user asks.
 
 **Row colors** come from automatic rules in the sheet, so never color cells by hand:
 - **Orange:** Delivery Status starts with "No vendor" (no quote yet).

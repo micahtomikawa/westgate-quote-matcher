@@ -27,6 +27,7 @@ Run one check of the user's inbox for vendor quotes. Follow the rules in this fo
      - Every other quote goes in the cell note, as `Vendor $price/UOM (Q#, m/d)` under `Other quotes:`.
      - If the units differ, don't write. Ask the user instead.
    - Add any flags (see "Flags" in `CLAUDE.md`) as `Flag: ...` lines at the end of the note.
+   - Set **Best Price ($/Unit)** to the lowest unit price as a number, with the "Best Price note" from `CLAUDE.md`: the lowest vendor, the other quotes, and any flags.
    - If Delivery Status is exactly `No vendor PO yet`, set it to `Quoted, no vendor PO yet`. The sheet turns the row yellow automatically.
 7. **Verify.** Re-read every written row, including the note, and confirm all of these:
    - The PO and description still match.
