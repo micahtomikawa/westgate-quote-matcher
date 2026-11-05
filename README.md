@@ -6,7 +6,8 @@ What it does on each check:
 - Finds new quote emails in your inbox, including PDF quotes.
 - Matches each quoted line to the right row by Customer PO, item and quantity.
 - Adds the price to **Vendor Quotes Received**, e.g. `Elite Supply: $231.38/EA`.
-- Changes **Delivery Status** from `No vendor PO yet` to `Quoted, no vendor PO yet`, which clears the orange highlight on that row.
+- Changes **Delivery Status** from `No vendor PO yet` to `Quoted, no vendor PO yet`. That turns the row **yellow**: orange means no quote, yellow means quoted but not ordered, and white means ordered.
+- Adds **flags** to the cell note, such as a quote above our sell price or a spec the vendor didn't confirm.
 - When several vendors quote the same line, it keeps the **cheapest** price in the cell. Every other quote goes into a **note** on that cell (hover over the cell to see it), so no price is ever lost.
 - Asks you when a match isn't clear, the specs don't line up, or the units don't match. It never touches any other sheet.
 

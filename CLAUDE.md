@@ -16,7 +16,7 @@ The user may be new to the terminal. Explain things plainly and keep reports sho
 - The header row is row 5, and data starts on row 6.
 - **Never write to any other sheet or tab.** If a quote has no matching row here, report it in chat and don't write it anywhere.
 
-Teammates edit and rearrange this sheet. Always re-read the header row and find the columns **by header name**, not by letter:
+Teammates insert, move and rename columns in this sheet; a "Best Price ($/Unit)" column was added mid-day on 11/5 and shifted everything after it. **Right before every write, re-read the header row and find the columns by header name, never by letter.** After writing, confirm the text landed under the right header.
 
 | Header | Used for |
 |---|---|
@@ -24,10 +24,16 @@ Teammates edit and rearrange this sheet. Always re-read the header row and find 
 | Description | match |
 | Qty, UOM | match |
 | Restrictions | AML / country-of-origin check |
-| Vendor Quotes Received | **write**: the cheapest quote (others go in the cell note) |
+| Sell Price ($/unit) | compare: flag quotes above it |
+| Vendor Quotes Received | **write**: the cheapest quote (others and any flags go in the cell note) |
 | Delivery Status | **write**: if it is exactly `No vendor PO yet`, change it to `Quoted, no vendor PO yet` |
 
-Why the Delivery Status change: the sheet colors a row orange while its status starts with "No vendor". Changing it to "Quoted, ..." clears the orange for that row only.
+Don't fill other columns, such as Best Price, unless the user asks.
+
+**Row colors** come from automatic rules in the sheet, so never color cells by hand:
+- **Orange:** Delivery Status starts with "No vendor" (no quote yet).
+- **Yellow:** Delivery Status starts with "Quoted" (quote received, not ordered).
+- **White:** anything else, such as a PO placed (ordered).
 
 ## Write format
 - Vendor Quotes Received: `Vendor Name: $price/UOM` (e.g. `Elite Supply: $231.38/EA`).
@@ -49,6 +55,14 @@ Why the Delivery Status change: the sheet colors a row orange while its status s
 - On a tie, keep the existing quote.
 - Never delete a price. Every quote ends up either in the cell or in the note.
 - Read the cell **and its note** before writing, and re-read both after.
+## Flags
+Add `Flag: ...` lines at the end of the same cell note when:
+- The lowest quote is above the row's Sell Price: `Flag: lowest quote $222.10/EA is above our $143.02 sell price.` Remove this flag if a later quote brings the lowest to or below the sell price.
+- A grade, spec, AML, MTR or color requirement wasn't confirmed by the vendor.
+- The item is import while the row has a country-of-origin requirement.
+- A pricier quote confirms a spec the cheapest one doesn't, e.g. `Flag: Elite did not confirm SA-516-70; Pride confirms it.`
+
+## Writing notes
 - To write a note, use the Sheets `update_spreadsheet` tool with an `updateCells` request on that cell and `fields: "note"`. The tab's numeric sheetId comes from `get_spreadsheet`. Write the full note text: existing lines plus the new line.
 
 ## Matching rules
