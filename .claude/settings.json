@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(loop)",
+      "Skill(quote-check)",
+      "Skill(start-quote-watch)",
+      "mcp__claude_ai_Gmail__search_threads",
+      "mcp__claude_ai_Gmail__get_thread",
+      "mcp__claude_ai_Gmail__get_message",
+      "mcp__claude_ai_Google_Sheets__get_values",
+      "mcp__claude_ai_Google_Sheets__get_spreadsheet",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__read_page",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__find"
+    ]
+  }
+}

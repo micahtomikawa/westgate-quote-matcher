@@ -1,0 +1,11 @@
+# Personal, per-computer files (never shared)
+processed.json
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Customer / line data
+*.csv
+*.pdf
+*.xlsx
+
+.DS_Store
